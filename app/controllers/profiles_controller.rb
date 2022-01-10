@@ -11,6 +11,8 @@ class ProfilesController < ApplicationController
 
     def create(user_id)
         @profile = Profile.new(user_id: user_id)
+        @profile.image.attach(io: File.open('app/assets/images/download.png'), filename: 'download.png')
+        flash[:success] = "Image attached successfully."
         if @profile.save
             flash[:success] = "Profile created successfully."            
         else
@@ -24,7 +26,7 @@ class ProfilesController < ApplicationController
         @profile = Profile.find(params[:id])
         if @profile.update(updated_profile_params)
             flash[:success] = "Profile updated successfully."
-            redirect_to edit_url
+            redirect_to root_url
         else
             flash[:danger] = "Profile update failed."
             redirect_to root_url
@@ -39,9 +41,10 @@ class ProfilesController < ApplicationController
 
     private
         def profile_params
-            params.require(:profile).permit(:name, :job_title, :total_experience, :overview, 
+            params.require(:profile).permit(:name, :job_title, :total_experience, :overview, :image,
                 :career_highlights, :primary_skills, :secondary_skills,
-                :educations_attributes => [ :id, :school, :degree, :description, :start, :end, :_destroy]
+                :educations_attributes => [ :id, :school, :degree, :description, :start, :end, :_destroy],
+                
             )
         end
 end
