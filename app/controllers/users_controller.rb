@@ -8,6 +8,8 @@ class UsersController < ApplicationController
         @user = User.new(user_params)
         if @user.save
             session[:user_id] = @user.id
+            @profile = Profile.create(user_id: @user.id)
+            flash[:success] = "User Created!"
             redirect_to login_path
         else
             render plain: "Error"

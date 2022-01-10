@@ -5,6 +5,20 @@ class ProfilesController < ApplicationController
     before_action :logged_in_user, only: [:update]
     before_action :correct_user,   only: [:update]
 
+    def new
+        @profile = Profile.new
+    end
+
+    def create(user_id)
+        @profile = Profile.new(user_id: user_id)
+        if @profile.save
+            flash[:success] = "Profile created successfully."            
+        else
+            flash[:danger] = "Profile creation failed."
+            # redirect_to root_path
+        end
+    end
+
     def update
         updated_profile_params = update_array_attributes_in_params(profile_params)
         @profile = Profile.find(params[:id])
