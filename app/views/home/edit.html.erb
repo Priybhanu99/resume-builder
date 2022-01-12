@@ -12,9 +12,11 @@
             <%= f.text_field :name, value: @profile.name || current_user.name, placeholder: "Name" %><br/>
             <div class="flex items-center my-4">
                 <% if @profile.image.attached? %>
-                        <image src="<%(url_for(@profile.image))%>">
+                        <image src="<%(url_for(@profile.image))%>", id: "image-preview", style:"max-width:200px",
+                        style: "max-height:200px">
                 <% end %>
             </div>
+            
             <%= f.label "Upload a profile image" %><br/>
             <%= f.file_field :image, accept: 'image/png, image/gif, image/jpeg' %><br/>
 

@@ -1,11 +1,20 @@
-<h1> Sign Up </h1>
+<div class="w-screen h-screen flex justify-center items-center">
+    <div class="flex flex-col w-full max-w-md px-4 py-8 bg-white rounded-lg shadow dark:bg-gray-800 sm:px-6 md:px-8 lg:px-10 m-10">
+        <div class="self-center mb-6 text-xl font-bold text-black-600 sm:text-2xl dark:text-white">
+            Sign Up
+        </div>
 
-<%= form_for @user do |f| %>
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-    <%= f.label :email %>
-    <%= f.text_field :email %>
-    <%= f.label :password %>
-    <%= f.password_field :password %>
-    <%= f.submit "Sign Up" %>
-<% end %>
+        <%= form_for @user do |f| %>
+            <%= f.label :name %><br>
+            <%= f.text_field :name %><br><br>
+            <%= f.label :email %><br>
+            <%= f.text_field :email %><br><br>
+            <%= f.label :password %><br>
+            <%= f.password_field :password %><br><br>
+            <div class="flex w-full">
+                    <%= f.submit "Create Account", class: "py-2 px-4  bg-purple-600 hover:bg-purple-700 focus:ring-purple-500 focus:ring-offset-purple-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg" %>
+            </div>
+        <% end %>
+    </div>
+</div>
+
