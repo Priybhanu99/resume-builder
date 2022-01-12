@@ -3,7 +3,7 @@ class EducationsController < ApplicationController
 
     def new
         current_user.profile.educations.create
-        flash[:success] = "Education added."
+        flash[:success] = "New Education added."
         redirect_to edit_url
     end
 
