@@ -25,6 +25,7 @@ class ExperiencesController < ApplicationController
     
     updated_experience_params = update_array_attributes_in_params(experience_params)
     @experience = Experience.find(params[:id])
+    @project = Project.update(experience_params.require(:projects_attributes))
     if @experience.update(updated_experience_params)
       flash[:success] = "Experience was successfully updated."
       redirect_to edit_url

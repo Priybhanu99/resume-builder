@@ -51,7 +51,6 @@
                         <%= experience.fields_for :projects do |project| %>
                             <%= render 'shared/input/project', project: project %>
                         <% end %><br />
-                        <%= exp_id = experience.object.id%>
                         <% new_path = "/projects/new/" + (experience.object.id).to_s %>
                         <%= render 'shared/input/buttons/add', label: "+ Add Project", path: new_path %>
                     <% end %>
