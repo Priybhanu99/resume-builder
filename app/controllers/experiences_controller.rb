@@ -1,5 +1,5 @@
 class ExperiencesController < ApplicationController
-  before_action :logged_in_user, only: [:new]
+  before_action :logged_in_user, only: [:new, :create, :update]
   
   # GET /experiences/new
   def new
@@ -8,32 +8,32 @@ class ExperiencesController < ApplicationController
     redirect_to edit_url
   end
 
-  # def create
-  #   @experience = Experience.new(experience_params)
+  def create
+    @experience = Experience.new(experience_params)
 
-  #   respond_to do |format|
-  #     if @experience.save
-  #       format.html { redirect_to experience_url(@experience), notice: "Experience was successfully created." }
-  #       format.json { render :show, status: :created, location: @experience }
-  #     else
-  #       format.html { render :new, status: :unprocessable_entity }
-  #       format.json { render json: @experience.errors, status: :unprocessable_entity }
-  #     end
-  #   end
-  # end
+    respond_to do |format|
+      if @experience.save
+        flash[:success] = "Experience was successfully created."
+      else
+        flash[:danger] = "Experience creation failed."
+      end
+    end
+  end
 
   # # PATCH/PUT /experiences/1 or /experiences/1.json
-  # def update
-  #   respond_to do |format|
-  #     if @experience.update(experience_params)
-  #       format.html { redirect_to experience_url(@experience), notice: "Experience was successfully updated." }
-  #       format.json { render :show, status: :ok, location: @experience }
-  #     else
-  #       format.html { render :edit, status: :unprocessable_entity }
-  #       format.json { render json: @experience.errors, status: :unprocessable_entity }
-  #     end
-  #   end
-  # end
+  def update
+    
+    updated_experience_params = update_array_attributes_in_params(experience_params)
+    @experience = Experience.find(params[:id])
+    if @experience.update(updated_experience_params)
+      flash[:success] = "Experience was successfully updated."
+      redirect_to edit_url
+    else
+      flash[:danger] = "Experience update failed."
+      redirect_to edit_url
+    end
+
+  end
 
   # # DELETE /experiences/1 or /experiences/1.json
   # def destroy
@@ -45,14 +45,16 @@ class ExperiencesController < ApplicationController
   #   end
   # end
 
-  # private
-  #   # Use callbacks to share common setup or constraints between actions.
+    #   # Use callbacks to share common setup or constraints between actions.
   #   def set_experience
   #     @experience = Experience.find(params[:id])
   #   end
 
-  #   # Only allow a list of trusted parameters through.
-  #   def experience_params
-  #     params.require(:experience).permit(:company, :position, :start_date, :end_date, :description)
-  #   end
+    # Only allow a list of trusted parameters through.
+  private
+    def experience_params
+      params.require(:experience).permit(:company, :position, :start_date, :end_date, :description,
+           :projects_attributes => [ :id, :title, :description, :url, :tech_stack, :_destroy]      
+      )
+    end
 end
