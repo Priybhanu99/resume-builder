@@ -1,5 +1,3 @@
-# Flexiple Assignment
-
 ## Tech stack for this app
 
 - RoR
