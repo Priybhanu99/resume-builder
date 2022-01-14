@@ -12,8 +12,8 @@ class UsersController < ApplicationController
             flash[:success] = "User Created!"
             redirect_to login_path
         else
-            render plain: "Error"
-            # redirect_to root_path
+            flash[:danger] = "Unable to create new user"
+            redirect_to login_path
         end
     end
 
