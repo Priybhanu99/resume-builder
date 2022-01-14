@@ -1,0 +1,9 @@
+<%= link_to label, href, method: method ||= nil, target: target ||= nil, id: id ||= nil, "data-tooltip-target": "tooltip",
+    class: "py-2 px-4 border-2 border-"+ color +"-600 text-"+ color +"-600 hover:border-"+ color +"-700 hover:text-"+ color +"-700 text-center text-base font-semibold shadow-md hover:shadow-none focus:outline-none rounded-lg", onclick: onclick ||= nil  %>
+<script>
+    function doThis() {
+        navigator.clipboard.writeText("<%= link ||= nil %>").then(function() {
+            alert("Copied to clipboard");
+        });
+    }
+</script>
