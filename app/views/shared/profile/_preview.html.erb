@@ -5,10 +5,14 @@
             <div class="px-6">
                 <div class="flex flex-wrap justify-center mb-10">
                     <% if profile.image.attached? %>
-                        <image src="<%=(url_for(profile.image))%>" ,
-                        id: "image-preview", style:"max-width:200px", 
-                        class: "shadow-xl rounded-full absolute w-1/2 transform -translate-y-1/2" 
-                        >
+                    <%= image_tag (url_for(profile.image)), 
+                        id: "image-preview", class: "shadow-xl rounded-full h-96 w-96"
+                    %>
+                    <% else %>
+                        <%= image_tag gravatar_url_for(current_user), 
+                            id: "image-preview", style:"max-width:200px", 
+                            class: "shadow-xl rounded-full absolute w-1/2 transform -translate-y-1/2" 
+                        %>
                     <% end %>
 
                     <div class="w-full px-4 text-center mt-28">
